@@ -64,12 +64,18 @@
         <h1 class="text-center text-white"><strong>Harry Potter Wizarding War | Dymension Edition</strong></h1>
     </div>
 
+
+
   <!-- MAIN SECTION -->
   <div class="container text-center mt-4 mb-4">
     <div class="bg-body-secondary pb-4">
         <div class="row container">
-            <h1 id="connectSection" class="text-warning"><strong>CONNECT YOUR WALLET</strong></h1>
-            <h2 id="teamSection" class="text-warning" hidden><strong>Choose Your Team and Join The Battle</strong></h2>
+            <div class="blobs-container">
+                <h1 id="connectSection" class="text-warning blob yellow"><strong>CONNECT YOUR WALLET</strong></h1>
+            </div>
+            <div class="blobs-container">
+                <h2 id="teamSection" class="text-warning blob yellow" hidden><strong>Choose Your Team and Join The Battle</strong></h2>
+            </div>
             <div class="col-lg-5 bg-body-secondary">
               <section>
                 <div id="potterTeamPic">
@@ -746,8 +752,6 @@
     </div>
   </div>
 
-
-
   <!-- Transaction Modal Button -->
   <div hidden>
     <!-- Button trigger modal -->
@@ -765,8 +769,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <h4>All Done!</h4>
-          <p>You have successfully donated your drink, thank you 💛</p>
+          <h4>Great!</h4>
+          <p>You have successfully Attack <strong>Team Voldemort 🪄</strong></p>
         </div>
         <div class="modal-footer">
           <button id="modalButtonClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok, Close</button>
@@ -816,19 +820,29 @@
       <div class="modal-content">
 
         <div class="modal-header text-center">
-          <h4 class="text-center" align="center">🤩🤩 Welcome to our platform 🤩🤩</h4>
+          <h4 class="text-center" align="center">🎇🎇 Welcome to Wizarding World 🎇🎇</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <h2>Manta Pacific Mainnet is Live! 🎉🎉</h2>
-          <p>You can buy us a drink, please press the <strong>Start</strong> button and connect your wallet!</p>
+          <h2> Choose Your Side and Join the Battle </h2>
+          <h4>🧙🏼Team Harry Potter & 👳🏼Team Lord Voldemort</h4>
+          <p>Please press the <strong>Start 🪄</strong> button and Connect your wallet to Begin!</p>
         </div>
         <div class="modal-footer">
-          <button id="modal3ButtonClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Start</button>
+          <button id="modal3ButtonClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Start 🪄</button>
         </div>
       </div>
     </div>
   </div>
+
+  <audio controls id="magicAudio">
+    <source src="horse.ogg" type="audio/wav">
+    <source src="/audio/magic.wav" type="audio/wav">
+  </audio>
+  <audio controls id="healthAudio">
+    <source src="horse.ogg" type="audio/wav">
+    <source src="/audio/heal.wav" type="audio/wav">
+  </audio>
   
   <script type="module" src="/js/charSelect.js"></script>
     <script type="module" src="/js/connectWallet.js"></script>
