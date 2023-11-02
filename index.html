@@ -17,6 +17,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"/>
     <script src="https://kit.fontawesome.com/dc9887d570.js" crossorigin="anonymous"></script>
+    <script type="module" src="/js/detectWallet.js"></script>
 </head>
 <body>
   
@@ -81,7 +82,7 @@
                         <img src="/img/potterteam.png" class="img-fluid rounded mx-auto d-block" alt="">
                     </div>
                     <div id="teamProgressPotter" hidden>
-                        <h4><span id="potterHealthID">1000000</span> / 1000000</h4>
+                        <h4><span id="potterHealthID">10000000</span> / 10000000</h4>
                         <div id="potterProgressBAR" class="container progress bg-dark">
                             <div id="potterHealthP" class="progress-bar progress-bar-striped bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
@@ -100,7 +101,7 @@
                             <img src="/img/voldemortteam.png" class="img-fluid rounded mx-auto d-block" alt="">
                         </div>
                         <div id="teamProgressVoldemort" hidden>
-                            <h4><span id="voldemortHealthID">1000000</span> / 1000000</h4>
+                            <h4><span id="voldemortHealthID">10000000</span> / 10000000</h4>
                             <div id="voldemortProgressBAR" class="container progress bg-dark">
                                 <div id="voldemortHealthP" class="progress-bar progress-bar-striped bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
@@ -515,15 +516,15 @@
                         </div>
                     </div>
                 </section>
-                <div class="mt-4 mb-4  text-center">
+                <div class="mt-4 mb-4  text-center" id="charSelectSection" hidden>
                     <select id="charSelect">
                         <option disabled>Choose</option>
-                        <option value="Harry Potter">Harry Potter</option>
-                        <option value="Ron Weasley">Ron Weasley</option>
-                        <option value="Hermione Granger">Hermione Granger</option>
-                        <option value="Lord Voldemort">Lord Voldemort</option>
-                        <option value="Bellatrix Lestrange">Bellatrix Lestrange</option>
-                        <option value="Lucius Malfoy">Lucius Malfoy</option>
+                        <option id="HPSELECT" value="Harry Potter">Harry Potter</option>
+                        <option id="RWSELECT" value="Ron Weasley">Ron Weasley</option>
+                        <option id="HGSELECT" value="Hermione Granger">Hermione Granger</option>
+                        <option id="LVSELECT" value="Lord Voldemort">Lord Voldemort</option>
+                        <option id="BLSELECT" value="Bellatrix Lestrange">Bellatrix Lestrange</option>
+                        <option id="LMSELECT" value="Lucius Malfoy">Lucius Malfoy</option>
                     </select>
                     <input id="nickname" type="text" placeholder="Nickname" required>
                     <button type="button" id="charSelectButton">Select</button>
@@ -662,15 +663,25 @@
                                     </div>
                                     <!-- RIGHT PANEL -->
                                     <div class="col-lg-6" align="left">
-                                        <h2 class="text-primary">Rewards</h2>
-                                        <div class="row">
-                                            <div class="col">
-                                                <h4>User's Total Hit:</h4>
+                                        <div class="m-1 bg-secondary-subtle p-2">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h4 style="font-weight: 800;">User's Total Hit:</h4>
+                                                </div>
+                                                <div class="col">
+                                                    <h5 class="text-danger"><strong id="userHit"></strong> Points</h5>
+                                                </div>
                                             </div>
-                                            <div class="col">
-                                                <h5 class="text-danger"><strong id="userHit"></strong> Points</h5>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h4 style="font-weight: 800;">User's Total Protection:</h4>
+                                                </div>
+                                                <div class="col">
+                                                    <h5 class="text-danger"><strong id="userTotalProtection"></strong> Points</h5>
+                                                </div>
                                             </div>
                                         </div>
+                                        <h2 class="text-primary">Rewards</h2>
                                         <div class="row">
                                             <div class="col">
                                                 <h4>User XP:</h4>
@@ -689,18 +700,19 @@
                                                         <h5 class="btn-dark"><strong id="userGoldTokens" class="text-dark"></strong></h5>
                                                     </div>
                                                     <div class="col">
-                                                        <button class="btn btn-outline-warning" id="claimGoldTokens">CLAIM</button>
+                                                        <button class="btn btn-outline-warning" id="claimGalleonTokens">CLAIM</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="mt-2">
-                                            <input type="text" value="0xf3cDCc6ddE792F99aCF34DE0eab109cCEA5e9a54" id="myInput" disabled>
+                                            <input type="text" value="0xB8431cA0817D105B7Ea5D780599aEa32aa56de6d" id="myInput" disabled>
                                             <button onclick="myFunction()">Copy $Galleon Address</button>
                                         </div>
                                         <h2 class="mt-4">Actions</h2>
                                         <!-- ACTIONS SECTION -->
                                         <div class="row mt-4 mb-4">
+                                            <h4>Improve Need: <span class="text-success" id="improveNeed"></span>$GALLEON</h4>
                                             <div class="col">
                                                 <button type="button" class="btn btn-primary" id="improveChar"
                                                 data-mdb-toggle="popover"
@@ -708,13 +720,13 @@
                                                 data-mdb-trigger="hover">IMPROVE CHAR</button>
                                             </div>
                                             <div class="col">
-                                                <button type="button" class="btn btn-success" id="breakCooldown"
+                                                <button type="button" class="btn btn-success" id="breakHitCooldown"
                                                 data-mdb-toggle="popover"
                                                 title="REMOVE COOLDOWN (5 XP)"
                                                 data-mdb-trigger="hover">BREAK HIT COOLDOWN</button>
                                             </div>
                                             <div class="col">
-                                                <button type="button" class="btn btn-success" id="breakCooldown"
+                                                <button type="button" class="btn btn-success" id="breakProCooldown"
                                                 data-mdb-toggle="popover"
                                                 title="REMOVE COOLDOWN (5 XP)"
                                                 data-mdb-trigger="hover">BREAK PRO. COOLDOWN</button>
@@ -731,39 +743,21 @@
                                                     <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                                         <h4 class="p-2 mt-2">You can buy this magical items with $xGalleon <span class="text-primary btn-sm" style="font-weight: 600; font-size: smaller;">| GO STAKE</span></h4>
                                                         <div class="accordion-body">
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <div class="row">
-                                                                                <button>Nimbus 2000</button>
-                                                                                <p>5000 $xGALLEON | +5 Hit Power</p>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="row">
-                                                                                <button>Invisibility Cloak</button>
-                                                                                <p>8000 $xGALLEON | +10 Hit Power</p>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <ul>
-                                                                        <li>
-                                                                            <div class="row">
-                                                                                <button>Sword of Gryffindor</button>
-                                                                                <p>15000 $xGALLEON | +25 Hit Power</p>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="row">
-                                                                                <button>Elder Wand</button>
-                                                                                <p>50000 $xGALLEON | +100 Hit Power</p>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
+                                                            <div class="row" id="buySectionDiv">
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="row">
+                                                                            <button class="buySelect" id="swordButton">Sword of Gryffindor</button>
+                                                                            <p>15000 $xGALLEON | +25 Hit Power</p>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="row">
+                                                                            <button class="buySelect" id="wandButton">Elder Wand</button>
+                                                                            <p>50000 $xGALLEON | +100 Hit Power</p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -799,35 +793,40 @@
                                 <h4>Galleon Situation</h4>
                                 <div class="row">
                                     <div class="col">OWNED $GALLEON:</div>
-                                    <div class="col" id="ownedGalleon"></div>
+                                    <div class="col">
+                                        <h5 id="ownedGalleon"></h5>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">STAKED $GALLEON:</div>
-                                    <div class="col" id="ownedXgalleon"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">UNSTAKED $GALLEON:</div>
-                                    <div class="col" id="ownedXgalleon"></div>
+                                    <div class="col">
+                                        <h5 id="stakedgalleon"></h5>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <h4>xGalleon Situation</h4>
                                 <div class="row">
                                     <div class="col">OWNED $xGALLEON:</div>
-                                    <div class="col" id="stakedGalleon"></div>
+                                    <div class="col">
+                                        <h5 id="ownedxGalleon"></h5>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col">TOTAL CLAIMED $xGALLEON:</div>
-                                    <div class="col" id="unclaimedGalleon"></div>
+                                    <div class="col">TOTAL EARNED $xGALLEON:</div>
+                                    <div class="col">
+                                        <h5 id="totalEarnedxGalleon"></h5>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col">UNCLAIMED $xGALLEON:</div>
-                                    <div class="col" id="unclaimedGalleon"></div>
+                                <div class="mt-2">
+                                    <input type="text" value="0xc9568c93be67cC4fe2B6A6D4b719817f488f80e8" id="myInput2" disabled>
+                                    <button onclick="myFunction2()">Copy $xGalleon Address</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- STAKE ACTION SECTION -->
                 <div class="bg-white">
                     <div class="m-2 p-2">
                         <div class="row">
@@ -838,11 +837,11 @@
                                     <input id="stakeValue" type="text" class="form-control" required>
                                     <button id="userTokenBalance" class="">MAX</button>
                                     <span class="input-group-text">
-                                      <select id="messageSelect" class="form-select" aria-label="Default select example">
-                                        <option value="1" selected>1 Hours</option>
-                                        <option value="2">6 Hours</option>
-                                        <option value="3">12 Hours</option>
-                                        <option value="4">24 Hours</option>
+                                      <select id="locktime" class="form-select" aria-label="Default select example">
+                                        <option value="3600" selected>1 Hours</option>
+                                        <option value="21600">6 Hours</option>
+                                        <option value="43200">12 Hours</option>
+                                        <option value="86400">24 Hours</option>
                                       </select>
                                     </span>
                                 </div>
@@ -854,7 +853,7 @@
                                     <div class="col-6">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="unstakeValue"><strong>Staked $Galleon:</strong></span>
-                                            <input id="message" type="text" class="form-control" disabled>
+                                            <input id="userStakedGalleon" type="text" class="form-control" disabled>
                                         </div>
                                         <button id="unstakeButton" type="button" class="btn btn-outline-warning mb-4 btn-lg">UNSTAKE</button>
                                     </div>
@@ -863,7 +862,7 @@
                                             <span class="input-group-text" id="basic-addon1"><strong>$xGalleon:</strong></span>
                                             <input id="xgalleonClaimValue" type="text" class="form-control" disabled>
                                         </div>
-                                        <button id="stakeButton" type="button" class="btn btn-success mb-4 btn-lg">CLAIM</button>
+                                        <button id="claimxGalleonButton" type="button" class="btn btn-success mb-4 btn-lg">CLAIM</button>
                                     </div>
                                 </div>
                             </div>
@@ -1010,7 +1009,10 @@
             
             <div id="PLAYERS" class="tabcontent">
                 <h3 class="text-warning" style="font-weight: 800;">Top 10 Players</h3>
-                <div class="bg-white m-4 p-4">
+                <div class="bg-white m-4 p-4" align="left">
+                    <ol id="top10Players">
+
+                    </ol>
                 </div>
             </div>
     
@@ -1021,7 +1023,7 @@
 
     </div>
 
-    <!-- Transaction Modal Button -->
+    <!-- HIT Transaction Modal Button -->
     <div hidden>
         <!-- Button trigger modal -->
         <button id="modalButtonOpen" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -1029,7 +1031,7 @@
         </button>
     </div>
 
-    <!-- Transaction Modal -->
+    <!-- HIT Transaction Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
@@ -1039,7 +1041,34 @@
             </div>
             <div class="modal-body">
                 <h4>Great!</h4>
-                <p id="exampleModalLabelStatus">You have successfully <span id="exampleModalLabelAct">Attack</span> <span id="exampleModalLabelTeam"><strong>Team Voldemort 🪄</strong></span></p>
+                <p id="exampleModalLabelStatus">You have successfully Attack Team <strong> <span id="exampleModalLabelAct"></span> 🪄</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button id="modalButtonClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok, Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+     <!-- HEALTH Transaction Modal Button -->
+    <div hidden>
+        <!-- Button trigger modal -->
+        <button id="modalHealthButtonOpen" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#healthModal">
+        Transaction on Road!
+        </button>
+    </div>
+
+    <!-- HEALTH Transaction Modal -->
+    <div class="modal fade" id="healthModal" tabindex="-1" aria-labelledby="healthModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-primary" id="healthModalLabel">Transaction on road!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4>Great!</h4>
+                <p id="healthModalLabelStatus">You have successfully Protect Team <strong> <span id="healthModalLabelAct"></span> 🪄</strong></p>
             </div>
             <div class="modal-footer">
                 <button id="modalButtonClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok, Close</button>
@@ -1104,17 +1133,31 @@
         </div>
     </div>
 
-    <audio controls id="magicAudio">
+    <audio controls id="healthAudio" hidden>
         <source src="/audio/magic.wav" type="audio/wav">
     </audio>
-    <audio controls id="healthAudio">
+    <audio controls id="hitAudio" hidden>
         <source src="/audio/heal.wav" type="audio/wav">
     </audio>
   
+    
+    <script type="module" src="/js/hit.js"></script>
+    <script type="module" src="/js/protection.js"></script>
+    <script type="module" src="/js/claimGalleon.js"></script>
+    <script type="module" src="/js/claimxGalleon.js"></script>
     <script type="module" src="/js/charSelect.js"></script>
     <script type="module" src="/js/connectWallet.js"></script>
-    <script type="module" src="/js/detectWallet.js"></script>
     <script type="module" src="/js/createChar.js"></script>
+    <script type="module" src="/js/improveSpecialPower.js"></script>
+    <script type="module" src="/js/improveSpell.js"></script>
+    <script type="module" src="/js/improveArmor.js"></script>
+    <script type="module" src="/js/breakHitCooldown.js"></script>
+    <script type="module" src="/js/breakProCooldown.js"></script>
+    <script type="module" src="/js/improveChar.js"></script>
+    <script type="module" src="/js/buyItem.js"></script>
+    <script type="module" src="/js/getUserGalleon.js"></script>
+    <script type="module" src="/js/stakeGalleon.js"></script>
+    <script type="module" src="/js/unstakeGalleon.js"></script>
     <script src="/js/index.js"></script>
     <!-- <script type="module" src="/js/changeNetwork.js"></script>
     <script type="module" src="/js/donateSelect.js"></script>

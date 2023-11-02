@@ -1,9 +1,3 @@
-// import {sepoliaDonatesArray} from "/js/donatesSepolia.js";
-// import {scrollSepoliaDonatesArray} from "/js/donatesScrollSepolia.js";
-// import {mantaDonatesArray} from "/js/donatesManta.js";
-// import {topDonorsSepolia} from "/js/topDonorsSepolia.js";
-// import {topDonorsScrollSepolia} from "/js/topDonorsScrollSepolia.js";
-// import {topDonorsManta} from "/js/topDonorsManta.js";
 import {checkChar} from "/js/checkChar.js";
 import {checkTeam} from "/js/checkTeam.js";
 import {voldemortHealth} from "/js/checkVoldemortHealth.js";
@@ -14,7 +8,18 @@ import {checkCooldown} from "/js/charCooldown.js";
 import {checkProtection} from "/js/charProtection.js";
 import {checkUserXP} from "/js/charXP.js";
 import {checkUserHitPoint} from "/js/charHitPoint.js";
+import {checkUserProPoint} from "/js/charProtectionPoint.js";
 import {checkUserBools} from "/js/checkBools.js";
+import {checkGalleonReward} from "/js/checkGalleonReward.js";
+import {improveNeedFunc} from "/js/improveNeed.js";
+import {usersArray} from "/js/usersArray.js";
+
+import {userGalleonBalance} from "/js/userGalleonBalance.js";
+import {userxGalleonBalance} from "/js/userxGalleonBalance.js";
+import {userStakedGalleon} from "/js/userStakedGalleon.js";
+import {userStakedGalleonValue} from "/js/userStakedGalleonValue.js";
+import {userEarnedxGalleon} from "/js/userEarnedxGalleon.js";
+import {userxGalleonClaimValue} from "/js/userxGalleonClaimValue.js";
 
 window.onload = (event) => {
     isConnected();
@@ -26,17 +31,6 @@ let chooseTeamSection = document.querySelector('#chooseTeamSection')
 let statusScreen = document.querySelector('#statusScreen')
 let teamProgressPotter = document.querySelector('#teamProgressPotter')
 let teamProgressVoldemort = document.querySelector('#teamProgressVoldemort')
-
-// let donateSection = document.querySelector('#donateSection')
-// let donorsSection = document.querySelector('#donorsSection')
-// let donorsSectionFree = document.querySelector('#donorsSectionFree')
-// let donorsSectionSepolia = document.querySelector('#donorsSectionSepolia')
-// let donorsSectionScroll = document.querySelector('#donorsSectionScroll')
-// let donorsSectionManta = document.querySelector('#donorsSectionManta')
-// let donatesSectionFree = document.querySelector('#donatesSectionFree')
-// let donatesSectionSepolia = document.querySelector('#donatesSectionSepolia')
-// let donatesSectionScroll = document.querySelector('#donatesSectionScroll')
-// let donatesSectionManta = document.querySelector('#donatesSectionManta')
 
 let modal3ButtonOpen = document.querySelector('#modal3ButtonOpen')
 
@@ -66,13 +60,20 @@ async function isConnected() {
             checkProtection();
             checkUserXP();
             checkUserHitPoint();
+            checkUserProPoint();
             checkUserBools();
+            checkGalleonReward();
+            improveNeedFunc();
+            usersArray();
+            userGalleonBalance();
+            userxGalleonBalance();
+            userStakedGalleon();
+            userStakedGalleonValue();
+            userEarnedxGalleon();
+            userxGalleonClaimValue();
         } else {
             chooseTeamSection.hidden = await false;
         }
-
-        // await topDonorsSepolia();
-        // await sepoliaDonatesArray();
 
     } else {
         console.log("Metamask is not connected");

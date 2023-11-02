@@ -6,6 +6,8 @@ let healthHarryButton = document.querySelector('#healthHarryButton');
 let attackHarryButton = document.querySelector('#attackHarryButton');
 let healthVoldemortButton = document.querySelector('#healthVoldemortButton');
 let attackVoldemortButton = document.querySelector('#attackVoldemortButton');
+let exampleModalLabelAct = document.querySelector('#exampleModalLabelAct');
+let healthModalLabelAct = document.querySelector('#healthModalLabelAct');
 
 export const checkTeam = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -20,10 +22,14 @@ export const checkTeam = async () => {
         healthVoldemortButton.hidden = await false;
         attackVoldemortButton.hidden = await true;
         healthHarryButton.hidden = await true;
+        exampleModalLabelAct.innerHTML = "H. Potter"
+        healthModalLabelAct.innerHTML = "Lord Voldemort"
     } else if(charTeam == "Potter") {
         attackVoldemortButton.hidden = await false;
         healthHarryButton.hidden = await false;
         attackHarryButton.hidden = await true;
         healthVoldemortButton.hidden = await true;
+        exampleModalLabelAct.innerHTML = "Lord Voldemort"
+        healthModalLabelAct.innerHTML = "H. Potter"
     }
 };

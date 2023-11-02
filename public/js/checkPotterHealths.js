@@ -15,6 +15,6 @@ export const potterHealth = async () => {
     let totalPotterHealthAmount2 = await totalPotterHealthAmount1 * 1000;
     let totalPotterHealthAmount3 = await Math.round(totalPotterHealthAmount2)
     potterHealthID.innerHTML = await totalPotterHealthAmount3
-    let amount = await (1000000 - totalPotterHealthAmount3) / 1000000 * 100
+    let amount = await (10000000 - totalPotterHealthAmount3) / 10000000 * 100
     potterHealthP.style.width = `${amount}%`;
 };

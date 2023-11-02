@@ -15,6 +15,6 @@ export const voldemortHealth = async () => {
     let totalVoldemortHealthAmount2 = await totalVoldemortHealthAmount1 * 1000;
     let totalVoldemortHealthAmount3 = await Math.round(totalVoldemortHealthAmount2)
     voldemortHealthID.innerHTML = await totalVoldemortHealthAmount3
-    let amount = await (1000000 - totalVoldemortHealthAmount3) / 1000000 * 100
+    let amount = await (10000000 - totalVoldemortHealthAmount3) / 10000000 * 100
     voldemortHealthP.style.width = `${amount}%`;
 };

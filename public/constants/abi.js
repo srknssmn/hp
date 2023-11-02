@@ -21,6 +21,19 @@ export const HP_ABI = [
     },
     {
         "inputs": [],
+        "name": "blockTime",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "breakHitCooldown",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -36,9 +49,9 @@ export const HP_ABI = [
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "itemID",
-                "type": "uint256"
+                "internalType": "string",
+                "name": "item",
+                "type": "string"
             }
         ],
         "name": "buyItem",
@@ -232,19 +245,6 @@ export const HP_ABI = [
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -523,12 +523,54 @@ export const HP_ABI = [
     },
     {
         "inputs": [],
-        "name": "totalReward",
+        "name": "showCharsArray",
         "outputs": [
             {
-                "internalType": "uint256",
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "player",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "team",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "character",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "playername",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "power",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "protection",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "playerhit",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "playerProtect",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct HP.Char[]",
                 "name": "",
-                "type": "uint256"
+                "type": "tuple[]"
             }
         ],
         "stateMutability": "view",
@@ -550,39 +592,6 @@ export const HP_ABI = [
     {
         "inputs": [],
         "name": "voldemortTeam",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "name": "withdrawGalleon",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdrawXGalleon",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "xGalleonAmount",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -763,6 +772,25 @@ export const LOCK_ABI = [
     {
         "inputs": [],
         "name": "totalLocked",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "totalRewardxGalleon",
         "outputs": [
             {
                 "internalType": "uint256",
