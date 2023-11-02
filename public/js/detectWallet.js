@@ -4,7 +4,17 @@
 // import {topDonorsSepolia} from "/js/topDonorsSepolia.js";
 // import {topDonorsScrollSepolia} from "/js/topDonorsScrollSepolia.js";
 // import {topDonorsManta} from "/js/topDonorsManta.js";
-// import {charCheck} from "/js/charCheck.js";
+import {checkChar} from "/js/checkChar.js";
+import {checkTeam} from "/js/checkTeam.js";
+import {voldemortHealth} from "/js/checkVoldemortHealth.js";
+import {potterHealth} from "/js/checkPotterHealths.js";
+import {checkCharName} from "/js/checkCharName.js";
+import {checkPower} from "/js/charPower.js";
+import {checkCooldown} from "/js/charCooldown.js";
+import {checkProtection} from "/js/charProtection.js";
+import {checkUserXP} from "/js/charXP.js";
+import {checkUserHitPoint} from "/js/charHitPoint.js";
+import {checkUserBools} from "/js/checkBools.js";
 
 window.onload = (event) => {
     isConnected();
@@ -13,7 +23,9 @@ window.onload = (event) => {
 let connectWalletButton = document.querySelector('#connectWallet')
 let connectSection = document.querySelector('#connectSection')
 let chooseTeamSection = document.querySelector('#chooseTeamSection')
-const teamProgress = document.querySelectorAll('.teamProgress');
+let statusScreen = document.querySelector('#statusScreen')
+let teamProgressPotter = document.querySelector('#teamProgressPotter')
+let teamProgressVoldemort = document.querySelector('#teamProgressVoldemort')
 
 // let donateSection = document.querySelector('#donateSection')
 // let donorsSection = document.querySelector('#donorsSection')
@@ -38,14 +50,25 @@ async function isConnected() {
         let last = await userWallet.slice(-5)
         connectWalletButton.innerHTML = await first + "..." + last
         connectSection.hidden = await true;
-        // await charCheck();
-
+        await checkChar();
+        let userNickname = await document.querySelector('#userNickname').innerHTML
         if (userNickname.length > 0) {
+            teamProgressPotter.hidden = await false;
+            teamProgressVoldemort.hidden = await false;
             chooseTeamSection.hidden = await true;
-            teamProgress.hidden = await false;
+            statusScreen.hidden = await false;
+            voldemortHealth();
+            potterHealth();
+            checkTeam();
+            checkCharName();
+            checkPower();
+            checkCooldown();
+            checkProtection();
+            checkUserXP();
+            checkUserHitPoint();
+            checkUserBools();
         } else {
             chooseTeamSection.hidden = await false;
-            teamProgress.hidden = await true;
         }
 
         // await topDonorsSepolia();
@@ -54,6 +77,7 @@ async function isConnected() {
     } else {
         console.log("Metamask is not connected");
         connectSection.hidden = await false;
+        statusScreen.hidden = await true;
         await modal3ButtonOpen.click();
     }
 }
