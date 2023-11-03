@@ -7,8 +7,8 @@ import {checkProCooldown} from "/js/checkProCooldown.js";
 document.querySelector("#healthHarryButton").addEventListener('click' , protectionFunc)
 document.querySelector("#healthVoldemortButton").addEventListener('click' , protectionFunc)
 
-let modalButtonOpen = document.querySelector('#modalHealthButtonOpen')
-let modalButtonClose = document.querySelector('#modalHealthButtonOpen')
+let modalHealthButtonOpen = document.querySelector('#modalHealthButtonOpen')
+let modalHealthButtonClose = document.querySelector('#modalHealthButtonClose')
 
 let healthAudio = document.querySelector('#healthAudio')
 
@@ -34,10 +34,10 @@ async function protectionFunc(event) {
 
         await checkProCooldown();
         const txn = await contract.protect();
-        modalButtonOpen.click();
+        modalHealthButtonOpen.click();
         await playAudio(healthAudio)
         await txn.wait();
-        await modalButtonClose.click();
+        await modalHealthButtonClose.click();
         await console.log("success")
         await location.reload();
     } else {
